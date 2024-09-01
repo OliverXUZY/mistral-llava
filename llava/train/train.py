@@ -698,7 +698,16 @@ class LazySupervisedDataset(Dataset):
             image_file = self.list_data_dict[i]['image']
             image_folder = self.data_args.image_folder
             processor = self.data_args.image_processor
-            image = Image.open(os.path.join(image_folder, image_file)).convert('RGB')
+
+            #####
+            # image = Image.open(os.path.join(image_folder, image_file)).convert('RGB')
+            image_path = os.path.join(image_folder, image_file)
+            try:
+                image = Image.open(image_path).convert('RGB')
+            except FileNotFoundError:
+                print(f"Warning: Image file not found: {image_path}")
+            #####
+    
             if self.data_args.image_aspect_ratio == 'pad':
                 def expand2square(pil_img, background_color):
                     width, height = pil_img.size
