@@ -2,13 +2,13 @@
 
 export WANDB_PROJECT=table_mistral
 
-RUN_NUM="00_vicuna"
+RUN_NUM="00"
 
-mkdir -p "./logs/llava-v1.5-7b-pretrain_${RUN_NUM}"
+mkdir -p "./scripts/v1_5/pretrain_mistral/logs/llava-v1.5-7b-pretrain_${RUN_NUM}"
 
 deepspeed llava/train/train_mem.py \
     --deepspeed ./scripts/zero2.json \
-    --model_name_or_path lmsys/vicuna-7b-v1.5 \
+    --model_name_or_path mistralai/Mistral-7B-Instruct-v0.2 \
     --version plain \
     --data_path ./LLaVA-Pretrain/enhanced_llava_pretrain_data_708K.json \
     --image_folder ./LLaVA-Pretrain/images \
@@ -40,4 +40,4 @@ deepspeed llava/train/train_mem.py \
     --lazy_preprocess True \
     --report_to wandb \
     --run_name "llava-v1.5-7b-pretrain-with-table_${RUN_NUM}" \
-    2> >(tee -a "./logs/llava-v1.5-7b-pretrain_${RUN_NUM}/stderr.log" >&2) | tee -a "./logs/llava-v1.5-7b-pretrain_${RUN_NUM}/stdout.log"
+    2> >(tee -a "./scripts/v1_5/pretrain_mistral/logs/llava-v1.5-7b-pretrain_${RUN_NUM}/stderr.log" >&2) | tee -a "./scripts/v1_5/pretrain_mistral/logs/llava-v1.5-7b-pretrain_${RUN_NUM}/stdout.log"
