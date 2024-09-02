@@ -36,7 +36,8 @@ from llava.model import *
 from llava.mm_utils import tokenizer_image_token
 
 from PIL import Image
-
+from PIL import Image, UnidentifiedImageError
+from pdb import set_trace as pds
 
 local_rank = None
 
@@ -706,6 +707,13 @@ class LazySupervisedDataset(Dataset):
                 image = Image.open(image_path).convert('RGB')
             except FileNotFoundError:
                 print(f"Warning: Image file not found: {image_path}")
+                image = self._get_placeholder_image()
+            except (OSError, UnidentifiedImageError) as e:
+                print(f"Warning: Error opening image {image_path}: {e}")
+                image = self._get_placeholder_image()
+            except Exception as e:
+                print(f"Unexpected error when opening {image_path}: {e}")
+                image = self._get_placeholder_image()
             #####
     
             if self.data_args.image_aspect_ratio == 'pad':
@@ -746,6 +754,10 @@ class LazySupervisedDataset(Dataset):
             crop_size = self.data_args.image_processor.crop_size
             data_dict['image'] = torch.zeros(3, crop_size['height'], crop_size['width'])
         return data_dict
+    
+    def _get_placeholder_image(self):
+        # Create a simple gray placeholder image
+        return Image.new('RGB', (224, 224), color='gray')
 
 
 @dataclass
