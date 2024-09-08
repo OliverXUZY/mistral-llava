@@ -2,7 +2,7 @@
 
 export WANDB_PROJECT=table_mistral
 
-RUN_NUM="02"
+RUN_NUM="03"
 
 mkdir -p "./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RUN_NUM}"
 
@@ -32,7 +32,7 @@ deepspeed llava/train/train_mem.py \
     --evaluation_strategy "no" \
     --save_strategy "steps" \
     --save_steps 500 \
-    --save_total_limit 2 \
+    --save_total_limit 1 \
     --learning_rate 2e-5 \
     --weight_decay 0. \
     --warmup_ratio 0.03 \
@@ -43,6 +43,7 @@ deepspeed llava/train/train_mem.py \
     --gradient_checkpointing True \
     --dataloader_num_workers 4 \
     --lazy_preprocess True \
+    --resume_from_checkpoint "checkpoints/llava-v1.5-7b-sft-with-table_02/checkpoint-4000" \
     --report_to wandb \
     --run_name "llava-v1.5-7b-sft-with-table_${RUN_NUM}" \
     2> >(tee -a "./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RUN_NUM}/stderr.log" >&2) | tee -a "./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RUN_NUM}/stdout.log"
