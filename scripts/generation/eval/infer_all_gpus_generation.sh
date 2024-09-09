@@ -21,9 +21,9 @@ run_python_script() {
 
     python -m llava.eval.generation.infer_generation \
         --model-path "$model_path" \
-        --question-file "/home/ubuntu/projects/imageTab/tabdata/infer_generation_testsplit/shot_${num_shot}/${qa_file_name}.json" \
+        --question-file "/home/ubuntu/projects/imageTab/data/infer_generation_testsplit/shot_${num_shot}/${qa_file_name}.json" \
         --image-folder /home/ubuntu/projects/imageTab/ \
-        --answers-file "/home/ubuntu/projects/imageTab/tabdata/infer_generation_testsplit/shot_${num_shot}/answers/${model_filename}/${as_file_name}.jsonl" \
+        --answers-file "/home/ubuntu/projects/imageTab/data/infer_generation_testsplit/shot_${num_shot}/answers/${model_filename}/${as_file_name}.jsonl" \
         --temperature 0 \
         --conv-mode "$conv_template" \
         >> scripts/generation/eval/infer_gene_stdout.log 2>> scripts/generation/eval/infer_gene_stderr.log
@@ -40,7 +40,8 @@ gpu_ids=(0 1 2 3 4 5 6 7)
 ############################################################### Lists for different parameters ###############################################################
 # model_path="SpursgoZmy/table-llava-v1.5-7b"
 model_paths=(
-    "checkpoints/llava-v1.5-7b-sft-with-table_03"
+    # "checkpoints/llava-v1.5-7b-sft-with-table_03"
+    "SpursgoZmy/table-llava-v1.5-7b"
 )
 # model_path="checkpoints/table-llava-v1.5-7b-rerank_01"
 
