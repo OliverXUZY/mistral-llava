@@ -2,7 +2,7 @@
 
 export WANDB_PROJECT=table_mistral
 
-RUN_NUM="04"
+RUN_NUM="06"
 
 mkdir -p "./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RUN_NUM}"
 
@@ -11,7 +11,7 @@ mkdir -p "./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RU
 
 deepspeed llava/train/train_mem_table.py \
     --deepspeed ./scripts/zero3.json \
-    --model_name_or_path checkpoints/llava-v1.5-7b-sft-with-table_03 \
+    --model_name_or_path checkpoints/llava-v1.5-7b-sft-with-table_05/checkpoint-2500 \
     --version mistral_instruct \
     --data_path /home/ubuntu/projects/imageTab/table_ins_ft/train_generation_qa_gold.json \
     --image_folder /home/ubuntu/projects/imageTab/ \
@@ -24,7 +24,7 @@ deepspeed llava/train/train_mem_table.py \
     --group_by_modality_length True \
     --bf16 True \
     --output_dir "./checkpoints/llava-v1.5-7b-sft-with-table_${RUN_NUM}" \
-    --num_train_epochs 5 \
+    --num_train_epochs 10 \
     --per_device_train_batch_size 8 \
     --per_device_eval_batch_size 4 \
     --gradient_accumulation_steps 2 \
@@ -32,9 +32,9 @@ deepspeed llava/train/train_mem_table.py \
     --save_strategy "steps" \
     --save_steps 500 \
     --save_total_limit 1 \
-    --learning_rate 2e-5 \
+    --learning_rate 1e-5 \
     --weight_decay 0. \
-    --warmup_ratio 0.03 \
+    --warmup_ratio 0.01 \
     --lr_scheduler_type "cosine" \
     --logging_steps 1 \
     --tf32 True \
@@ -43,6 +43,7 @@ deepspeed llava/train/train_mem_table.py \
     --dataloader_num_workers 4 \
     --lazy_preprocess True \
     --report_to wandb \
+    --resume_from_checkpoint "checkpoints/llava-v1.5-7b-sft-with-table_05/checkpoint-2500" \
     --run_name "llava-v1.5-7b-sft-with-table_${RUN_NUM}" \
     2> >(tee -a "./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RUN_NUM}/stderr.log" >&2) | tee -a "./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RUN_NUM}/stdout.log"
 
