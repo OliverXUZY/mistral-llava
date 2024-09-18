@@ -7,7 +7,7 @@ RUN_NUM="10"
 mkdir -p "./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RUN_NUM}"
 
 > ./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RUN_NUM}/stderr.log
-> ./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RUN_NUM}/stderr.log
+> ./scripts/v1_5/finetune_mistral/logs/llava-v1.5-7b-sft-with-table_${RUN_NUM}/stdout.log
 
 deepspeed llava/train/train_mem_table.py \
     --deepspeed ./scripts/zero3.json \
