@@ -41,7 +41,9 @@ gpu_ids=(0 1 2 3 4 5 6 7)
 # model_path="SpursgoZmy/table-llava-v1.5-7b"
 model_paths=(
     # "checkpoints/llava-v1.5-7b-sft-with-table_03"
-    "SpursgoZmy/table-llava-v1.5-7b"
+    # "SpursgoZmy/table-llava-v1.5-7b"
+    # "checkpoints/llava-v1.5-7b-sft-with-table_06/checkpoint-4500"
+    "checkpoints/llava-v1.5-7b-sft-with-table_10/checkpoint-20"
 )
 # model_path="checkpoints/table-llava-v1.5-7b-rerank_01"
 
