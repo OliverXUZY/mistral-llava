@@ -21,13 +21,16 @@ run_python_script() {
 
     python -m llava.eval.generation.infer_generation \
         --model-path "$model_path" \
-        --question-file "/home/ubuntu/projects/imageTab/data/infer_generation_testsplit/shot_${num_shot}/${qa_file_name}.json" \
+        --question-file "/home/ubuntu/projects/imageTab/data/infer_generation_testsplit/shot_${num_shot}/stage3/${qa_file_name}.json" \
         --image-folder /home/ubuntu/projects/imageTab/ \
-        --answers-file "/home/ubuntu/projects/imageTab/data/infer_generation_testsplit/shot_${num_shot}/answers/${model_filename}/${as_file_name}.jsonl" \
+        --answers-file "/home/ubuntu/projects/imageTab/data/infer_generation_testsplit/shot_${num_shot}/stage3/answers/${model_filename}/${as_file_name}.jsonl" \
         --temperature 0 \
         --conv-mode "$conv_template" \
         >> scripts/generation/eval/infer_gene_stdout.log 2>> scripts/generation/eval/infer_gene_stderr.log
 }
+## not stage3
+# --question-file "/home/ubuntu/projects/imageTab/data/infer_generation_testsplit/shot_${num_shot}/${qa_file_name}.json" \
+# --answers-file "/home/ubuntu/projects/imageTab/data/infer_generation_testsplit/shot_${num_shot}/answers/${model_filename}/${as_file_name}.jsonl" \
 
 # Counter for managing GPU assignment
 job_counter=0
@@ -53,8 +56,8 @@ conv_template="mistral_instruct"
 suffixes=("gold" "retrie" "random")
 # suffixes=("rerank")
 
-# num_shots=(1 2)
-num_shots=(1)
+num_shots=(1 2)
+# num_shots=(1)
 
 
 # Iterate over parameters
