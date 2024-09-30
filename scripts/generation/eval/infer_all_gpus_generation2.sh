@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Clear or create the log files
-> scripts/generation/eval/infer_gene_stdout.log
-> scripts/generation/eval/infer_gene_stderr.log
+> scripts/generation/eval/infer_gene_stdout2.log
+> scripts/generation/eval/infer_gene_stderr2.log
 
 
 
@@ -28,7 +28,7 @@ run_python_script() {
         --answers-file "/home/ubuntu/projects/imageTab/data/infer_generation_testsplit/shot_${num_shot}/stage3/answers/${model_filename}/${as_file_name}.jsonl" \
         --temperature 0 \
         --conv-mode "$conv_template" \
-        >> scripts/generation/eval/infer_gene_stdout.log 2>> scripts/generation/eval/infer_gene_stderr.log
+        >> scripts/generation/eval/infer_gene_stdout2.log 2>> scripts/generation/eval/infer_gene_stderr2.log
 }
 ## not stage3
 # --question-file "/home/ubuntu/projects/imageTab/data/infer_generation_testsplit/shot_${num_shot}/${qa_file_name}.json" \
@@ -38,24 +38,24 @@ run_python_script() {
 job_counter=0
 
 # Array of available GPU IDs
-gpu_ids=(0 1 2 3 4 5 6 7)
+# gpu_ids=(0 1 2 3 4 5 6 7)
 
-# gpu_ids=(4 5 6 7)
+gpu_ids=(4 5 6 7)
 
 ######################################################################################################################################################################################################
 ############################################################### Lists for different parameters ###############################################################
 # model_path="SpursgoZmy/table-llava-v1.5-7b"
 model_paths=(
     # "checkpoints/llava-v1.5-7b-sft-with-table_03"
-    # "SpursgoZmy/table-llava-v1.5-7b"
+    "SpursgoZmy/table-llava-v1.5-7b"
     # "checkpoints/llava-v1.5-7b-sft-with-table_06/checkpoint-4500"
     # "checkpoints/llava-v1.5-7b-sft-with-table_10/checkpoint-20"
-    "checkpoints/llava-v1.5-7b-sft-with-table_10/checkpoint-40"
+    # "checkpoints/llava-v1.5-7b-sft-with-table_10/checkpoint-40"
 )
 # model_path="checkpoints/table-llava-v1.5-7b-rerank_01"
 
-# conv_template="vicuna_v1"
-conv_template="mistral_instruct"
+conv_template="vicuna_v1"
+# conv_template="mistral_instruct"
 # List of suffixes
 suffixes=("gold" "retrie" "rerank" "random")
 # suffixes=("rerank")
