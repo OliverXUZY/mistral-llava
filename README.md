@@ -2,7 +2,6 @@
 ### training
 see details in [google doc](https://docs.google.com/document/d/1JYuAjCbj8RsJD_S_RjH_LQAGWWHkZlOKf9Xl-hP9ams/edit?usp=sharing0).
 ### Reproduce with trained checkpoint: 
-Inside tabLlava:
 
 ##### Run inference with reranking data, where data is constructed by retrieved indices.
 
